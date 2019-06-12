@@ -31,3 +31,11 @@
     transform: rotate(360deg);
   }
 }
+#checkboxForm{
+  width: 20px;
+}
+#labelCheckbox{
+   position:relative;
+  left: 40px;
+  bottom:27px;
+}

@@ -1,0 +1,10 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "get up",
+      "note": "get up at 6:00 am",
+      "status": false
+    }
+  ]
+}
