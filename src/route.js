@@ -18,12 +18,12 @@ const Routes = [
     {
         path:'/ActionPage',
         exact:false,
-        main:() =><ActionPage />
+        main:(history) =><ActionPage history ={history}/>
     },
     {
         path:'/:id/ActionPage',
         exact:false,
-        main:({match}) =><ActionPage match={match} />
+        main:({match,history}) =><ActionPage match={match} history ={history}/>
     },
     {
         path:'',

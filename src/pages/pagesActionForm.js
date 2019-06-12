@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { CreateNewWorks } from '../actions/AtcCreateNewWork';
+import { EditWork } from '../actions/editWork';
+import FixWork from '../actions/FixWork';
 import { connect } from 'react-redux';
 
 class PageActionForm extends Component {
@@ -22,21 +24,40 @@ class PageActionForm extends Component {
     onSubmit = (event) => {
         event.preventDefault();
         let work = this.state;
+        if(this.props.match){
+        let id = this.props.match.params.id;
+        this.props.FixWork({
+            id: id,
+            name: work.nameWork,
+            note: work.detailWork,
+            status: work.status
+        });
+        }else{
         this.props.CreateNewWork({
             name: work.nameWork,
             note: work.detailWork,
             status: work.status
         })
+        }
+        this.props.history.goBack();
 
     }
     componentWillMount() {
-        let match = this.props.match ? this.props.match : [];
+        let match = this.props.match;
         if (match) {
+            let id = match.params.id;
+            this.props.EditWork(id);
+        }
+    }
+    componentWillReceiveProps(nextProps) {
+
+        if (nextProps && nextProps.WorkEdit) {
+            let { WorkEdit } = nextProps;
             this.setState({
-                nameWork: 'test',
-                detailWork: '',
-                status: false
-            });
+                nameWork: WorkEdit.name,
+                detailWork: WorkEdit.note,
+                status: WorkEdit.status
+            })
         }
     }
     render() {
@@ -74,7 +95,7 @@ class PageActionForm extends Component {
                     </div>
                 </div>
                 <br />
-                <button  className="btn btn-primary">Create Work</button>
+                <button className="btn btn-primary">Create Work</button>
             </form>
 
         )
@@ -83,13 +104,19 @@ class PageActionForm extends Component {
 
 const mapStateToProps = state => {
     return {
-
+        WorkEdit: state.EditWork
     }
 }
 const mapDispatchToProps = (dispatch, props) => {
     return {
         CreateNewWork: (work) => {
             dispatch(CreateNewWorks(work))
+        },
+        EditWork: (id) => {
+            dispatch(EditWork(id));
+        },
+        FixWork : work =>{
+            dispatch(FixWork(work));
         }
     }
 }
