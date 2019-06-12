@@ -13,6 +13,11 @@ let menus = [
         name: 'New work',
         to:'/ActionPage',
         exact:false
+    },
+    {
+        name: 'Work Completed',
+        to:'/WorkCompleted',
+        exact:false
     }
 ]
 

@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
-
+import {NavLink} from 'react-router-dom';
 
 class Home extends Component {
     render() {
         return (
-            <h1>
-               This is page Home
-            </h1>
+            
+            <div class="container">
+                <h3>Welcome To My Web ♥ ♥ ♥ </h3>
+                <br/>
+                <p>
+                    The web is designed by Luan Koy and this is just the daily 
+                    work management web demo 
+                </p>
+                <br/>
+                <NavLink to="/ListProducts" class="btn btn-primary">Let Start Now</NavLink>
+                
+            </div>
+            
         )
     }
 }

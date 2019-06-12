@@ -3,14 +3,26 @@ import ProductsList from '../components/productsList';
 import ProductItem from '../components/productsItem';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import DeleteWork from '../actions/DeleteWork';
+import CompleteWork from '../actions/addWorkCompleted';
 
 class ProductList extends Component {
-    Constructor(props) {
+
+    removeWork = (id) => {
+        if (window.confirm('Do you want remove this work ? ')) {
+            this.props.DeleteWork(id);
+        }
     }
+    CompleteWork = (work) => {
+       this.props.CompleteWork(work);
+    }
+
     render() {
         let works = this.props.AllWorks;
         return (
-            <div>
+            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h2>List Works To Day</h2>
+                <br/>
                 <NavLink to='/ActionPage' className="btn btn-info">Add new work</NavLink>
                 <br />
                 <br />
@@ -25,9 +37,11 @@ class ProductList extends Component {
         if (works) {
             result = works.map((product, index) => {
                 return <ProductItem
+                    removeWork={this.removeWork}
                     index={index}
                     key={product.id}
                     product={product}
+                    CompleteWork={this.CompleteWork}
                 />
             })
         }
@@ -43,6 +57,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
+        DeleteWork: (id) => {
+            dispatch(DeleteWork(id));
+        },
+        CompleteWork : (work)=>{
+            dispatch(CompleteWork(work));
+        }
     }
 }
 

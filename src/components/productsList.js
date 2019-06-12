@@ -12,9 +12,9 @@ class ProductList extends Component {
                             <th>Stt</th>
                             <th>Name</th>
                             <th>Note</th>
-                            <th>Status</th>
                             <th>Modify</th>
                             <th>Delete</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>

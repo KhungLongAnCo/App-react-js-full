@@ -24,22 +24,27 @@ class PageActionForm extends Component {
     onSubmit = (event) => {
         event.preventDefault();
         let work = this.state;
-        if(this.props.match){
-        let id = this.props.match.params.id;
-        this.props.FixWork({
-            id: id,
-            name: work.nameWork,
-            note: work.detailWork,
-            status: work.status
-        });
-        }else{
-        this.props.CreateNewWork({
-            name: work.nameWork,
-            note: work.detailWork,
-            status: work.status
-        })
+        if (this.props.match) {
+            let id = this.props.match.params.id;
+            this.props.FixWork({
+                id: id,
+                name: work.nameWork,
+                note: work.detailWork,
+                status: work.status
+            });
+        } else {
+            this.props.CreateNewWork({
+                name: work.nameWork,
+                note: work.detailWork,
+                status: work.status
+            })
         }
-        this.props.history.goBack();
+        if (work.status === true) {
+            this.props.history.push('/WorkCompleted');
+        } else {
+            this.props.history.push('/ListProducts');
+        }
+
 
     }
     componentWillMount() {
@@ -64,7 +69,7 @@ class PageActionForm extends Component {
         let work = this.state;
         return (
             <form onSubmit={this.onSubmit} className="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <legend>Create new Work</legend>
+                <legend>{this.props.match ? 'Modify work ' : 'Create new Work'}</legend>
 
                 <div>
                     <label>Name</label>
@@ -115,7 +120,7 @@ const mapDispatchToProps = (dispatch, props) => {
         EditWork: (id) => {
             dispatch(EditWork(id));
         },
-        FixWork : work =>{
+        FixWork: work => {
             dispatch(FixWork(work));
         }
     }
