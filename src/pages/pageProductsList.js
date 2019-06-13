@@ -5,8 +5,16 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import DeleteWork from '../actions/DeleteWork';
 import CompleteWork from '../actions/addWorkCompleted';
+import SortByName from '../components/SortByName';
+import Searching from '../components/Searching';
 
 class ProductList extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            works: []
+        }
+    }
 
     removeWork = (id) => {
         if (window.confirm('Do you want remove this work ? ')) {
@@ -14,16 +22,35 @@ class ProductList extends Component {
         }
     }
     CompleteWork = (work) => {
-       this.props.CompleteWork(work);
+        this.props.CompleteWork(work);
     }
-
-    render() {
+    Searching = (works) => {
+        this.setState({
+            works
+        });
+    }
+    Sort = (works) => {
+        this.setState({
+            works
+        })
+    }
+    componentWillMount() {
         let works = this.props.AllWorks;
+        this.setState({
+            works
+        })
+    }
+    render() {
+        let works = this.state.works;
         return (
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <h2>List Works To Day</h2>
-                <br/>
+                <br />
                 <NavLink to='/ActionPage' className="btn btn-info">Add new work</NavLink>
+                <br />
+                <br />
+                <Searching Searching={this.Searching} works={this.props.AllWorks} />
+                <SortByName Sort={this.Sort} works={works} />
                 <br />
                 <br />
                 <ProductsList>
@@ -60,7 +87,7 @@ const mapDispatchToProps = (dispatch, props) => {
         DeleteWork: (id) => {
             dispatch(DeleteWork(id));
         },
-        CompleteWork : (work)=>{
+        CompleteWork: (work) => {
             dispatch(CompleteWork(work));
         }
     }

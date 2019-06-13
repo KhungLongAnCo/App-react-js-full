@@ -5,7 +5,7 @@ class Home extends Component {
     render() {
         return (
             
-            <div class="container">
+            <div className="container">
                 <h3>Welcome To My Web ♥ ♥ ♥ </h3>
                 <br/>
                 <p>
@@ -13,7 +13,7 @@ class Home extends Component {
                     work management web demo 
                 </p>
                 <br/>
-                <NavLink to="/ListProducts" class="btn btn-primary">Let Start Now</NavLink>
+                <NavLink to="/ListProducts" className="btn btn-primary">Let Start Now</NavLink>
                 
             </div>
             

@@ -10,7 +10,8 @@ class PageActionForm extends Component {
         this.state = {
             nameWork: '',
             detailWork: '',
-            status: false
+            status: false,
+            error:''
         }
     }
     onChange = (event) => {
@@ -24,28 +25,36 @@ class PageActionForm extends Component {
     onSubmit = (event) => {
         event.preventDefault();
         let work = this.state;
-        if (this.props.match) {
-            let id = this.props.match.params.id;
-            this.props.FixWork({
-                id: id,
-                name: work.nameWork,
-                note: work.detailWork,
-                status: work.status
-            });
-        } else {
-            this.props.CreateNewWork({
-                name: work.nameWork,
-                note: work.detailWork,
-                status: work.status
+        if (work.nameWork !== '' && work.detailWork !== '') {
+            if (this.props.match) {
+                let id = this.props.match.params.id;
+                this.props.FixWork({
+                    id: id,
+                    name: work.nameWork,
+                    note: work.detailWork,
+                    status: work.status
+                });
+            } else {
+                this.props.CreateNewWork({
+                    name: work.nameWork,
+                    note: work.detailWork,
+                    status: work.status
+                })
+            }
+            if (work.status === true) {
+                this.props.history.push('/WorkCompleted');
+            } else {
+                this.props.history.push('/ListProducts');
+            }
+            this.setState({
+                error:''
             })
         }
-        if (work.status === true) {
-            this.props.history.push('/WorkCompleted');
-        } else {
-            this.props.history.push('/ListProducts');
+        if(work.nameWork === '' || work.detailWork === ''){
+            this.setState({
+                error:'Not let form emty !!!'
+            })
         }
-
-
     }
     componentWillMount() {
         let match = this.props.match;
@@ -72,6 +81,10 @@ class PageActionForm extends Component {
                 <legend>{this.props.match ? 'Modify work ' : 'Create new Work'}</legend>
 
                 <div>
+                   {this.state.error ?  <div className="alert alert-warning">
+                        <button type="button" className="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <strong>warning</strong> {this.state.error}
+                    </div> : null }
                     <label>Name</label>
                     <input type="text"
                         onChange={this.onChange}
