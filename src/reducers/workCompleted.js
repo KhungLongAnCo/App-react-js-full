@@ -25,7 +25,8 @@ let myReducers = (state = initialState, action) => {
             localStorage.setItem('worksCompleted', JSON.stringify(state));
             return [...state];
         case Types.GET_WORK_COMPLETE:
-            state = JSON.parse(localStorage.getItem('worksCompleted'));
+            state = JSON.parse(localStorage.getItem('worksCompleted')) ?
+            JSON.parse(localStorage.getItem('worksCompleted')) : [];
         return [...state];
         default: return state;
     }
