@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Menu from './components/menu/menu';
-import routes from './route'
-  ;
+import routes from './route';
+import Icon from './public/favicon.ico';
+
 class App extends Component {
   render() {
     return (
@@ -13,6 +14,8 @@ class App extends Component {
           <Switch>
             {this.showContents(routes)}
           </Switch>
+
+
 
         </div>
       </Router>

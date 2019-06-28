@@ -14,7 +14,7 @@ class Home extends Component {
                 </p>
                 <br/>
                 <NavLink to="/ListProducts" className="btn btn-primary">Let Start Now</NavLink>
-                
+                <img src={"./../../public/img/align-center.png"} alt = "test"/>
             </div>
             
         )
