@@ -14,9 +14,6 @@ class App extends Component {
           <Switch>
             {this.showContents(routes)}
           </Switch>
-
-
-
         </div>
       </Router>
     )
